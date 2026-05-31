@@ -1,0 +1,107 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wanderlust</title>
+  </head>
+  <body> -->
+
+    <% layout("/layouts/boilerplate") %>
+
+<h3>Edit your Listing</h3>
+
+<form method="POST" action="/listings/<%= listing._id %>?_method=PUT">
+
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input
+      name="listing[title]"
+      value="<%= listing.title %>"
+      type="text"
+      class="form-control"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea
+      name="listing[description]"
+      class="form-control"
+      rows="5"
+    ><%= listing.description %></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="image" class="form-label">Image link</label>
+    <input
+      name="listing[image]"
+      value="<%= listing.image %>"
+      type="text"
+      class="form-control"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="price" class="form-label">Price</label>
+    <input name="listing[price]" value="<%= listing.price %>" type="number" class="form-control" />
+  </div>
+
+  <div class="mb-3">
+    <label for="country" class="form-label">Country</label>
+    <input
+      name="listing[country]"
+      value="<%= listing.country %>"
+      type="text"
+      class="form-control"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="location" class="form-label">Location</label>
+    <input
+      name="listing[location]"
+      value="<%= listing.location %>"
+      type="text"
+      class="form-control"
+    />
+  </div>
+
+  <br>
+
+  <!-- ⭐ MEDICAL FACILITY ⭐ -->
+  <div class="form-row mb-3">
+    <label class="form-label">Medical Facility</label>
+    <br>
+    <input
+      type="checkbox"
+      name="listing[medical]"
+      value="true"
+      <%= listing.medical ? 'checked' : '' %>
+    >
+    <span>Available</span>
+  </div>
+
+  <!-- ⭐ VEHICLE OPTIONS ⭐ -->
+  <div class="form-row mb-3">
+    <label class="form-label">Select Vehicles Available</label>
+
+    <div class="vehicle-options mt-2">
+      <% const v = listing.vehicles || []; %>
+
+      <label><input type="checkbox" name="listing[vehicles]" value="Bike" <%= v.includes("Bike") ? "checked" : "" %>> Bike</label>
+      <label><input type="checkbox" name="listing[vehicles]" value="Scooty" <%= v.includes("Scooty") ? "checked" : "" %>> Scooty</label>
+      <label><input type="checkbox" name="listing[vehicles]" value="Delta ATV" <%= v.includes("Delta ATV") ? "checked" : "" %>> Delta ATV</label>
+      <label><input type="checkbox" name="listing[vehicles]" value="Cycle" <%= v.includes("Cycle") ? "checked" : "" %>> Cycle</label>
+      <label><input type="checkbox" name="listing[vehicles]" value="Car" <%= v.includes("Car") ? "checked" : "" %>> Car</label>
+    </div>
+  </div>
+
+  <br>
+
+  <button class="btn btn-dark edit-btn">Edit</button>
+
+</form>
+
+  <!-- </body>
+</html> -->

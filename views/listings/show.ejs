@@ -1,0 +1,123 @@
+<% layout("/layouts/boilerplate") %>
+<!-- Ye line main layout file ko use karne ke liye hai -->
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-8 offset-2">
+      <h3 class="mb-4 text-center">Listing Details</h3>
+      <!-- Listing details ka heading -->
+    </div>
+  </div>
+
+  <div class="card col-8 offset-2 show-card">
+    <!-- ================= IMAGE SECTION ================= -->
+    <div class="image-container mb-3">
+      <% 
+        let imageUrl = null;
+        if (listing.image) {
+          if (typeof listing.image === 'string') {
+            imageUrl = listing.image;
+          } else if (listing.image.url) {
+            imageUrl = listing.image.url;
+          }
+        }
+      %>
+
+      <% if (imageUrl) { %>
+        <img src="<%= imageUrl %>" alt="<%= listing.title %>" class="card-img-top show-img">
+      <% } else { %>
+        <div class="no-image">🏠</div>
+      <% } %>
+    </div>
+
+    <!-- ================= CARD CONTENT ================= -->
+    <div class="card-body">
+      <p class="card-text">
+        <b><%= listing.title %></b> <br>
+        <%= listing.description %> <br><br>
+        <span class="fw-semibold text-primary">&#8377; <%= listing.price.toLocaleString("en-IN") %></span><br>
+        <%= listing.location %> <br>
+        <%= listing.country %>
+      </p>
+
+      <!-- ================= EXTRA FEATURES ================= -->
+      <div class="extra-features mt-3">
+        <h5>Facilities</h5>
+
+        <p>
+          <strong>Medical Facility:</strong>
+          <% if (listing.medical) { %>
+            <span style="color: green; font-weight: bold;">✔ Available</span>
+          <% } else { %>
+            <span style="color: red;">✘ Not Available</span>
+          <% } %>
+        </p>
+
+        <p>
+          <strong>Available Vehicles:</strong>
+          <% if (listing.vehicles && listing.vehicles.length > 0) { %>
+            <%= listing.vehicles.join(", ") %>
+          <% } else { %>
+            No vehicles available.
+          <% } %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= BUTTONS SECTION ================= -->
+  <div class="row mt-4">
+    <div class="btns col-8 offset-2 justify-content-center">
+      <% if (typeof session !== 'undefined' && session.userId) { %>
+        <a href="/listings/<%= listing._id %>/book" class="btn add-btn col-3">📅 Book Now</a>
+      <% } else { %>
+        <button onclick="openAuthModal()" class="btn add-btn col-3">📅 Book Now</button>
+      <% } %>
+
+      <a href="/listings/<%= listing._id %>/edit" class="btn edit-btn col-3 offset-1">✏️ Edit</a>
+
+      <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE" class="col-3 offset-1 p-0">
+        <button type="submit" class="btn btn-dark w-100">🗑️ Delete</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Back button -->
+  <div class="row mt-4 mb-5">
+    <div class="col-8 offset-2 text-center">
+      <a href="/listings" class="btn btn-secondary">← Back to All Listings</a>
+    </div>
+  </div>
+</div>
+
+<!-- ================= AUTH MODAL ================= -->
+<div id="authModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>🔒 Sign in to Book</h2>
+      <button class="close-btn" onclick="closeAuthModal()">&times;</button>
+    </div>
+
+    <p style="color: #718096; margin-bottom: 20px;">
+      You need to sign in or create an account to book this listing. Choose an option below:
+    </p>
+
+    <div class="modal-buttons">
+      <a href="/login" class="modal-btn modal-btn-login">🔑 Sign In</a>
+      <a href="/signup" class="modal-btn modal-btn-signup">✍️ Sign Up</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openAuthModal() {
+    document.getElementById('authModal').classList.add('active');
+  }
+  function closeAuthModal() {
+    document.getElementById('authModal').classList.remove('active');
+  }
+  window.onclick = function(event) {
+    const modal = document.getElementById('authModal');
+    if (event.target == modal) closeAuthModal();
+  };
+</script>

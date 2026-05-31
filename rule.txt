@@ -1,0 +1,806 @@
+npm init 
+npm i express
+npm i ejs
+npm i mongoos 
+touch app.js
+npm i method-override
+
+
+mogosh -->
+
+for Exit --> quit
+check  ---> show dbs
+ go inside the wanderlust --> use wanderlust
+  then go inside --> show collections
+   check the schema --> db.listings.find()
+ ------------
+
+
+ -----------old index .js--------------
+ <% layout("/layouts/boilerplate") %>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12 text-center mb-4">
+      <h3>🏕️All Listings</h3>
+      <p>Explore amazing travel destinations</p>
+    </div>
+  </div>
+
+  <% if (allListings && allListings.length > 0) { %>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4">
+      <% allListings.forEach(listing => { %>
+        <div class="col">
+          <a href="/listings/<%= listing.id %>" class="listing-link text-decoration-none">
+            <div class="card h-100">
+              <% if (listing.image && listing.image.url) { %>
+                <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>" style="height: 20rem; object-fit: cover;">
+              <% } else { %>
+                <div class="card-img-top d-flex align-items-center justify-content-center" 
+                     style="height: 20rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-size: 48px;">
+                  
+                </div>
+              <% } %>
+              <div class="card-body">
+                <p class="card-text mb-0">
+                  <b><%= listing.title %></b><br>
+                  &#8377;<%= listing.price.toLocaleString("en-IN") %>/night
+                </p>
+                <p class="listing-location mt-2">
+                  📍 <%= listing.location %>, <%= listing.country %>
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <div class="no-listings text-center mt-5">
+      <h2>No listings found</h2>
+      <p>Start by creating your first listing</p>
+    </div>
+  <% } %>
+</div>
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------
+airbnbcss
+
+
+/* Simple Airbnb-style UI with Plus Jakarta Sans and custom buttons/footer
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+/* Container */
+.container {
+  flex: 1;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+/* Navbar */
+.navbar {
+  height: 5rem;
+  background-color: #d1dbe4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.navbar .brand {
+  font-size: 22px;
+  font-weight: bold;
+  color: #530467;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #222;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.nav-links a.cta {
+  background-color: #530467;
+  color: #fff;
+}
+
+/* Cards / Listings Grid */
+.listings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.card {
+  background-color: white;
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 10px;
+  margin-bottom: 2rem;
+}
+
+.card-img-top {
+  border-radius: 1rem;
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 0;
+}
+
+.listing-link {
+  text-decoration: none;
+  color: black;
+}
+
+.card-img-overlay {
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.card-img-overlay:hover {
+  opacity: 0.2;
+  background-color: white;
+}
+
+/* Show Card */
+.show-card {
+  padding: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.image-container {
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 16px;
+}
+
+.title-lg {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.meta {
+  font-size: 14px;
+  color: gray;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+.btn,
+.add-btn,
+.edit-btn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+  background-color: #1f1049;
+  color: white;
+}
+
+.btn:hover,
+.add-btn:hover {
+  background-color: #037b35;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn:active,
+.add-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Button group */
+.btns {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Footer */
+.f-info {
+  text-align: center;
+  height: 8rem;
+  background-color: #E4F9F5;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.f-info-links,
+.f-info-socials,
+.f-info-brand {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.f-info-links a {
+  text-decoration: none;
+  color: #222;
+  font-weight: 500;
+}
+
+.f-info-links a:hover {
+  text-decoration: underline;
+  color: #110328;
+}
+
+.f-info-socials i {
+  font-size: 1.35rem;
+  margin-right: 1rem;
+  color: #530467;
+}
+
+/* Helpers */
+.text-muted {
+  color: gray;
+}
+
+.mt-12 {
+  margin-top: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .image-container {
+    height: 250px;
+  }
+
+  .listings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .btns {
+    flex-direction: column;
+    align-items: center;
+  }
+} */
+  --------------------------------------------------------app.js old code ---------------------------------------------------------------------------------------
+
+  // const express = require("express");
+// const session = require("express-session");
+// const MongoStore = require("connect-mongo");
+// const mongoose = require("mongoose");
+// const path = require("path");
+// const methodOverride = require("method-override");
+// const ejsMate = require("ejs-mate");
+// const Listing = require("./models/listing.js");
+// const authRouter = require("./auth");
+
+// const app = express();
+
+// // MongoDB connection
+// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+
+// async function main() {
+//   await mongoose.connect(MONGO_URL);
+//   console.log("✅ Connected to MongoDB");
+// }
+// main().catch((err) => console.log("❌ DB Connection Error:", err));
+
+// // Session middleware with MongoDB store - MUST be BEFORE routes
+// app.use(session({
+//   secret: 'your_secret_key_here',
+//   resave: false,
+//   saveUninitialized: false,
+//   store: MongoStore.create({
+//     mongoUrl: MONGO_URL,
+//     touchAfter: 24 * 3600 // lazy session update interval in seconds
+//   }),
+//   cookie: { 
+//     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+//     httpOnly: true,
+//     secure: false // set to true if using HTTPS
+//   }
+// }));
+
+// // Middleware
+// app.engine("ejs", ejsMate);
+// app.set("view engine", "ejs");
+// app.set("views", path.join(__dirname, "views"));
+
+// app.use(express.urlencoded({ extended: true }));
+// app.use(methodOverride("_method"));
+// app.use(express.static(path.join(__dirname, "public")));
+
+// // Routes - AFTER middleware
+// app.use("/", authRouter);
+
+// // Root route
+// app.get("/", (req, res) => {
+//   res.redirect("/login");
+// });
+
+// // Index route – Show all listings
+// app.get("/listings", async (req, res) => {
+//   const allListings = await Listing.find({});
+//   res.render("listings/index.ejs", { allListings, session: req.session });
+// });
+
+// // New listing form
+// app.get("/listings/new", (req, res) => {
+//   res.render("listings/new.ejs");
+// });
+
+// // Create route
+// app.post("/listings", async (req, res) => {
+//   try {
+//     const listingData = req.body.listing;
+
+//     // Simple validation
+//     if (!listingData.description || listingData.description.trim().length < 20) {
+//       throw new Error("Description must be at least 20 characters long");
+//     }
+
+//     const newListing = new Listing(listingData);
+//     await newListing.save();
+//     res.redirect("/listings");
+//   } catch (err) {
+//     console.error(err);
+//     res.send("Error: " + err.message);
+//   }
+// });
+
+// // Show route
+// app.get("/listings/:id", async (req, res) => {
+//   const { id } = req.params;
+//   const listing = await Listing.findById(id);
+//   if (!listing) return res.send("Listing not found");
+  
+//   // Pass session to the view
+//   res.render("listings/show.ejs", { 
+//     listing, 
+//     session: req.session,
+//     locals: { session: req.session }
+//   });
+// });
+
+// // Edit form
+// app.get("/listings/:id/edit", async (req, res) => {
+//   const { id } = req.params;
+//   const listing = await Listing.findById(id);
+//   res.render("listings/edit.ejs", { listing });
+// });
+
+// // Update route
+// app.put("/listings/:id", async (req, res) => {
+//   const { id } = req.params;
+//   await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+//   res.redirect(`/listings/${id}`);
+// });
+
+// // Delete route
+// app.delete("/listings/:id", async (req, res) => {
+//   const { id } = req.params;
+//   const deletedListing = await Listing.findByIdAndDelete(id);
+//   console.log("Deleted:", deletedListing);
+//   res.redirect("/listings");
+// });
+
+// // Middleware to check if user is logged in
+// const isLoggedIn = (req, res, next) => {
+//   if (!req.session.userId) {
+//     return res.redirect("/login");
+//   }
+//   next();
+// };
+
+// // Show booking form
+// app.get("/listings/:id/book", isLoggedIn, async (req, res) => {
+//   const { id } = req.params;
+//   const listing = await Listing.findById(id);
+//   if (!listing) return res.send("Listing not found");
+//   res.render("bookings/new.ejs", { listing, session: req.session });
+// });
+
+// // Create booking
+// app.post("/bookings", isLoggedIn, async (req, res) => {
+//   try {
+//     const Booking = require("./models/Booking");
+//     const { listingId, checkInDate, checkOutDate, guests } = req.body;
+    
+//     const booking = new Booking({
+//       listingId,
+//       userId: req.session.userId,
+//       checkInDate,
+//       checkOutDate,
+//       guests
+//     });
+    
+//     await booking.save();
+//     console.log("✅ Booking created");
+//     res.redirect("/listings");
+//   } catch (err) {
+//     console.error(err);
+//     res.send("Error creating booking: " + err.message);
+//   }
+// });
+
+// // Start server
+// app.listen(8080, () => {
+//   console.log("🚀 Server running on port 8080");
+// });
+
+
+
+
+
+-------------------------------------auth.js old code -------------------------------------------------
+
+
+// const express = require("express");
+// const bcrypt = require("bcryptjs");
+// const User = require("./models/User");
+// const router = express.Router();
+
+// // Show signup form
+// router.get("/signup", (req, res) => {
+//   res.render("auth/signup.ejs", { error: null, name: "", email: "" });
+// });
+
+// // Handle signup
+// router.post("/signup", async (req, res) => {
+//   try {
+//     const { name, email, password } = req.body;
+
+//     if (!email || !password) {
+//       retaurn res.render("auth/signup.ejs", {
+//         error: "Email and password are required",
+//         name,
+//         email,
+//       });
+//     }
+
+//     const existing = await User.findOne({ email });
+//     if (existing) {
+//       return res.render("auth/signup.ejs", {
+//         error: "Email already in use",
+//         name,
+//         email,
+//       });
+//     }
+
+//     const hash = await bcrypt.hash(password, 10);
+//     const user = new User({ name, email, password: hash });
+//     await user.save();
+
+//     console.log("✅ New user registered:", email);
+//     res.redirect("/login");
+//   } catch (err) {
+//     console.error(err);
+//     res.render("auth/signup.ejs", {
+//       error: "Server error: " + err.message,
+//       name: "",
+//       email: "",
+//     });
+//   }
+// });
+
+// // Show login form
+// router.get("/login", (req, res) => {
+//   res.render("auth/login.ejs", { error: null, success: null, email: "" });
+// });
+
+// // Handle login
+// router.post("/login", async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+//     if (!email || !password) {
+//       return res.render("auth/login.ejs", {
+//         error: "Email and password are required",
+//         success: null,
+//         email,
+//       });
+//     }
+
+//     const user = await User.findOne({ email });
+//     if (!user) {
+//       return res.render("auth/login.ejs", {
+//         error: "Invalid credentials",
+//         success: null,
+//         email,
+//       });
+//     }
+
+//     const ok = await bcrypt.compare(password, user.password);
+//     if (!ok) {
+//       return res.render("auth/login.ejs", {
+//         error: "Invalid credentials",
+//         success: null,
+//         email,
+//       });
+//     }
+
+//     // Store user in session (persists in MongoDB)
+//     req.session.userId = user._id;
+//     req.session.userEmail = user.email;
+//     req.session.userName = user.name;
+
+//     console.log("✅ User logged in:", email);
+//     // Save session to DB before redirect
+//     req.session.save((err) => {
+//       if (err) console.error("Session save error:", err);
+//       return res.redirect("/listings");
+//     });
+//   } catch (err) {
+//     console.error(err);
+//     res.render("auth/login.ejs", {
+//       error: "Server error: " + err.message,
+//       success: null,
+//       email: "",
+//     });
+//   }
+// });
+
+// // Logout route
+// router.get("/logout", (req, res) => {
+//   req.session.destroy((err) => {
+//     if (err) console.error(err);
+//     res.redirect("/login");
+//   });
+// });
+
+// module.exports = router;  
+
+------------------new.ejs old code 0--------------------------------------------------------------------------
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WanderLust</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .form-card {
+        width: 400px;
+        margin: 40px auto;
+        padding: 30px;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+
+      form {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2rem;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        border-radius: 10px;
+      }
+
+      h3 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 2rem;
+      }
+
+      .form-control {
+        margin-bottom: 1rem;
+      }
+
+      .btn-dark {
+        width: 100%;
+        padding: 0.8rem;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+    </style>
+  
+  </head>
+  <body> --> 
+
+
+
+  -------------------------------------------------------
+  /* :root {
+    --accent: #ff385c; 
+    --text-dark: #222222;
+    --text-light: #717171;
+    --border: #ddd;
+    --bg: #ffffff;
+  }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .booking-wrap {
+    max-width: 780px;
+    width: 100%;
+  }
+
+  .book-card {
+    background: var(--bg);
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+  }
+
+  .book-top {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .listing-thumb {
+    width: 220px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0;
+    background: #eee;
+  }
+
+  .book-meta {
+    flex: 1;
+  }
+
+  .book-meta h2 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    color: var(--text-dark);
+  }
+
+  .book-meta p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 14px;
+  }
+
+  .price {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 8px;
+  }
+
+  .book-form {
+    padding: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: flex-end;
+  }
+
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 160px;
+  }
+
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+  }
+
+  input[type="date"],
+  input[type="number"] {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #fff;
+    font-size: 14px;
+    color: var(--text-dark);
+    transition: 0.2s;
+  }
+
+  input:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 56, 92, 0.1);
+  }
+
+  .submit-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+  }
+
+  .btn-confirm {
+    background: var(--accent);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-confirm:hover {
+    background: #e31c5f;
+    transform: translateY(-1px);
+  }
+
+  .help-text {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-top: 6px;
+  }
+
+  @media (max-width: 720px) {
+    .book-top {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .listing-thumb {
+      width: 100%;
+      height: 220px;
+    }
+    .book-form {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .submit-wrap {
+      margin-left: 0;
+      justify-content: flex-end;
+    }
+  } */

@@ -1,0 +1,144 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="raw">
+  <div class="col-8 offset-2">
+    <br>
+
+    <h3>Create a New Listing</h3>
+
+    <form method="POST" action="/listings">
+
+      <div>
+        <label for="title" class="form-label"> Title</label>
+        <input name="listing[title]" placeholder="enter title" type="text" class="form-control" />
+      </div>
+
+      <div>
+        <label for="description" class="form-label"> Description</label>
+        <textarea name="listing[description]" placeholder="Minimum 20 letters" class="form-control"></textarea>
+      </div>
+
+      <div>
+        <label for="image" class="form-label"> Image link</label>
+        <input name="listing[image]" placeholder="enter image url" type="text" class="form-control" />
+      </div>
+
+      <div class="raw">
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label"> Price</label>
+          <input name="listing[price]" placeholder="enter price" type="number" class="form-control" id="price" />
+        </div>
+
+        <div class="mb-3 col-md-8">
+          <label for="country" class="form-label"> Country</label>
+          <input name="listing[country]" placeholder="enter country" type="text" class="form-control" />
+        </div>
+      </div>
+
+      <div>
+        <label for="location" class="form-label"> Location</label>
+        <input name="listing[location]" placeholder="enter location" type="text" class="form-control" />
+      </div>
+
+      <br>
+
+      <!-- ⭐ MEDICAL FACILITY ⭐ -->
+      <div class="form-group mb-3">
+        <label class="form-label">Medical Facility</label> <br>
+        <input type="checkbox" name="listing[medical]" value="true" />
+        <span>Available</span>
+      </div>
+
+      <!-- ⭐ VEHICLE OPTIONS ⭐ -->
+      <div class="form-group mb-3">
+        <label class="form-label">Select Vehicles Available</label>
+
+        <div class="vehicle-options mt-2">
+          <label><input type="checkbox" name="listing[vehicles]" value="Bike"> Bike</label>
+          <label><input type="checkbox" name="listing[vehicles]" value="Scooty"> Scooty</label>
+          <label><input type="checkbox" name="listing[vehicles]" value="Delta ATV"> Delta ATV</label>
+          <label><input type="checkbox" name="listing[vehicles]" value="Cycle"> Cycle</label>
+          <label><input type="checkbox" name="listing[vehicles]" value="Car"> Car</label>
+        </div>
+      </div>
+
+      <br>
+
+      <button class="btn btn-dark add-btn">Create listing</button>
+      <br><br>
+
+    </form>
+  </div>
+</div>
+<% layout("/layouts/boilerplate") %>
+
+<div class="raw">
+  <div class="col-8 offset-2">
+    <br>
+
+    <h3>Create a New Listing</h3>
+
+    <form method="POST" action="/listings">
+
+      <div>
+        <label for="title" class="form-label"> Title</label>
+        <input name="listing[title]" placeholder="enter title" type="text" class="form-control" />
+      </div>
+
+      <div>
+        <label for="description" class="form-label"> Description</label>
+        <textarea name="listing[description]" placeholder="Minimum 20 letters" class="form-control"></textarea>
+      </div>
+
+      <div>
+        <label for="image" class="form-label"> Image link</label>
+        <input name="listing[image]" placeholder="enter image url" type="text" class="form-control" />
+      </div>
+
+      <div class="raw">
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label"> Price</label>
+          <input name="listing[price]" placeholder="enter price" type="number" class="form-control" id="price" />
+        </div>
+
+        <div class="mb-3 col-md-8">
+          <label for="country" class="form-label"> Country</label>
+          <input name="listing[country]" placeholder="enter country" type="text" class="form-control" />
+        </div>
+      </div>
+
+      <div>
+        <label for="location" class="form-label"> Location</label>
+        <input name="listing[location]" placeholder="enter location" type="text" class="form-control" />
+      </div>
+
+      <br>
+
+      <!-- ⭐ MEDICAL FACILITY ⭐ -->
+      <div class="form-group mb-3">
+        <label class="form-label">Medical Facility</label> <br>
+        <input type="checkbox" name="listing[medical]" value="true" />
+        <span>Available</span>
+      </div>
+
+      <!-- ⭐ VEHICLE OPTIONS ⭐ -->
+      <div class="form-group mb-3">
+        <label class="form-label">Select Vehicles Available</label>
+
+        <div class="vehicle-options mt-2">
+          <label><input type="checkbox" name="listing[vehicles]" value="Bike"> Bike</label>
+          <label><input type="checkbox" name="listing[vehicles]" value="Scooty"> Scooty</label>
+          <label><input type="checkbox" name="listing[vehicles]" value="Delta ATV"> Delta ATV</label>
+          <label><input type="checkbox" name="listing[vehicles]" value="Cycle"> Cycle</label>
+          <label><input type="checkbox" name="listing[vehicles]" value="Car"> Car</label>
+        </div>
+      </div>
+
+      <br>
+
+      <button class="btn btn-dark add-btn">Create listing</button>
+      <br><br>
+
+    </form>
+  </div>
+</div>
